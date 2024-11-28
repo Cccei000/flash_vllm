@@ -1,8 +1,9 @@
 # jupyter tmp
 .ipynb_checkpoints/
 
-# default exp save path
+# temporary results save path
 results/latency
+results/throughput
 
 # ncu report
 *.ncu-rep

@@ -4,8 +4,8 @@ export WORLD_SIZE=4
 export TOKENIZERS_PARALLELISM=true
 export VLLM_ATTENTION_BACKEND="FLASHINFER"
 
-input_lens=(4096)
-batch_size=(1)
+input_lens=(4096 8192 16384)
+batch_size=(1 8 32)
 models=("Meta-Llama-3.1-8B-Instruct")
 use_fp16=(1 0)
 
@@ -48,7 +48,7 @@ for input_len in "${input_lens[@]}"; do
                 command="python ./benchmark_latency.py \
                     --input-len ${input_len} --output-len 1 --batch-size ${bs} \
                     --num-iters-warmup 0 --num-iters 1 \
-                    --model ${model_path} -tp 4 --max-model-len 8192 \
+                    --model ${model_path} -tp 4 \
                     --trust-remote-code --dtype float16 \
                     --output-json ${save_path}/${save_name}.json"    
                 eval $command
